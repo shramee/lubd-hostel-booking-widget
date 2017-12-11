@@ -1,0 +1,1 @@
+# lubd-hostel-booking-widget
