@@ -51,6 +51,10 @@ wp_enqueue_style( 'lubd-booking' );
           <button id="lubd_submit" class="button" type="submit">BOOK NOW</button>
       </span>
 			</div>
+
+			<input type="hidden" id="lubd_adult" value="1">
+			<input type="hidden" id="lubd_child" value="0">
+			<input type="hidden" id="lubd_room" value="1">
 		</form>
 	</div>
 
@@ -59,9 +63,9 @@ wp_enqueue_style( 'lubd-booking' );
 			$( '#lubd_booking_form' ).booking( {
 				checkInSelector: '#lubd_checkin_date',
 				checkOutSelector: '#lubd_checkout_date',
-//				adultSelector: '#lubd_adult',
-//				childSelector: '#lubd_child',
-//				roomSelector: '#lubd_room',
+				adultSelector: '#lubd_adult',
+				childSelector: '#lubd_child',
+				roomSelector: '#lubd_room',
 				codeSelector: '#lubd_access_code',
 				submitSelector: '#lubd_submit',
 				propertyId: '#lubd_property',
