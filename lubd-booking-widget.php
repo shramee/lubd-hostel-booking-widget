@@ -92,20 +92,10 @@ class Lubd_Booking_Widget extends WP_Widget {
 		}
 
 		/* Widget output here */
-		$this->widget_output( $args, $instance );
+		include 'tpl-widget.php';
 
 		/* After widget */
 		echo $args['after_widget'];
-	}
-
-	/**
-	 * This function will execute the widget frontend logic.
-	 * Everything you want in the widget should be output here.
-	 */
-	private function widget_output( $args, $instance ) {
-		wp_enqueue_script( 'lubd-booking' );
-		wp_enqueue_style( 'lubd-booking' );
-		include 'tpl-widget.php';
 	}
 
 	/**
@@ -153,4 +143,8 @@ add_action( 'wp_enqueue_scripts', function () {
 	$url = plugin_dir_url( __FILE__ );
 	wp_register_script( 'lubd-booking', "$url/js/booking.js", [ 'jquery-ui-datepicker' ] );
 	wp_register_style( 'lubd-booking', "$url/css/booking.css" );
+} );
+
+add_shortcode( 'lubd_booking', function( $instance ) {
+	include 'tpl-widget.php';
 } );

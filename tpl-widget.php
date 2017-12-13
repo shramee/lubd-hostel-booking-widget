@@ -1,3 +1,8 @@
+<?php
+wp_enqueue_script( 'lubd-booking' );
+wp_enqueue_style( 'lubd-booking' );
+?>
+
 <section id="lubd_booking_widget">
 	<h1>Booking with Label</h1>
 	<div id="lubd_booking_form">
