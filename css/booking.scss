@@ -203,8 +203,7 @@ $accent: #09f;
 		}
 	}
 
-	.datepicker-icon:after {
-		content: '\f073';
+	.field:after {
 		font-family: "FontAwesome";
 		position: absolute;
 		top: 4px;
@@ -214,18 +213,39 @@ $accent: #09f;
 		color: $accent;
 	}
 
-	/* Vertical Style */
+	.datepicker-icon:after {
+		content: '\f073';
+	}
 
+	.select-icon:after {
+		content: "";
+		color: inherit;
+	}
+
+	#booking_form {
+		margin: 1em -7px;
+		&:after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+	}
 	.form {
 		&.form-horizon {
-			.form-group, .field {
-				display: inline-block;
-				vertical-align: middle;
-			}
 			.form-group {
+				display: block;
 				width: 20%;
 				float: left;
-				input,
+			}
+			.field {
+				display: block;
+				margin: 7px;
+				input, select, button {
+					display: block;
+					width: 100%;
+					-webkit-appearance: none;
+					border-radius: 3px;
+				}
 			}
 		}
 		&.form-with-label {
