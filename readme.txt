@@ -1,4 +1,4 @@
-=== Better Starter Widget ===
+=== Lubd booking widget ===
 Contributors: khromov
 Tags: widget
 Requires at least: 3.3
@@ -16,7 +16,7 @@ This widget is a template for creating your own Widget plugins.
 After you have installed the plugin, you can start customizing it.
 The only changes you need to do are:
 
-* Rename the widget class from Widget_Better_Starter_Widget to something else (Example: Widget_My_Widget)
+* Rename the widget class from Lubd_Booking_Widget to something else (Example: Widget_My_Widget)
 * Change the add_action call on the first line to match your new widget class name (right after ...return register_widget(" )
 * Add your own fields in the _construct function by using the $this->add_field() method (There are some examples already)
 * Write your custom code in the widget_output() function. There is an example of printing some variables already

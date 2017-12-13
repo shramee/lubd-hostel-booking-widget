@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Better Starter Widget
+ * Plugin Name: Lubd booking widget
  * Plugin URI:
- * Description: This is the widget description
+ * Description: Shows booking form for Lubd
  * Version: 1.0
  * Author: Shramee
  * Author URI: http://shramee.me/
@@ -10,15 +10,15 @@
  */
 
 // Register the widget
-add_action( 'widgets_init', 'Widget_Better_Starter_Widget::register_widget' );
+add_action( 'widgets_init', 'Lubd_Booking_Widget::register_widget' );
 
 /**
- * Class Widget_Better_Starter_Widget
+ * Class Lubd_Booking_Widget
  */
-class Widget_Better_Starter_Widget extends WP_Widget {
+class Lubd_Booking_Widget extends WP_Widget {
 	/** Basic Widget Settings */
-	const WIDGET_NAME = "Better Starter Widget";
-	const WIDGET_DESCRIPTION = "This is the widget description";
+	const WIDGET_NAME = "Lubd booking widget";
+	const WIDGET_DESCRIPTION = "Shows booking form for Lubd";
 
 	var $textdomain;
 	var $fields;
@@ -28,7 +28,7 @@ class Widget_Better_Starter_Widget extends WP_Widget {
 	 * @action widgets_init
 	 */
 	public static function register_widget() {
-		register_widget( "Widget_Better_Starter_Widget" );
+		register_widget( "Lubd_Booking_Widget" );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Widget_Better_Starter_Widget extends WP_Widget {
 
 		//Add fields
 		$this->add_field( 'title', 'Enter title', '', 'text' );
-		$this->add_field( 'example_field', 'Example field', 'This is the default value', 'text' );
+		$this->add_field( 'Hostel', 'Preset hostel', '', 'text' );
 
 		//Translations
 		load_plugin_textdomain( $this->textdomain, false, basename( dirname( __FILE__ ) ) . '/languages' );
@@ -104,18 +104,9 @@ class Widget_Better_Starter_Widget extends WP_Widget {
 	 * Everything you want in the widget should be output here.
 	 */
 	private function widget_output( $args, $instance ) {
-		extract( $instance );
-
-		/**
-		 * This is where you write your custom code.
-		 */
-		?>
-		<p>
-			Here is the widget <?php echo $title; ?> <br/>
-			And here is our example field: <?php echo $example_field; ?>
-			<!-- The variable above can also be reached via $instance['example_field']; -->
-		</p>
-		<?php
+		wp_enqueue_script( 'lubd-booking' );
+		wp_enqueue_style( 'lubd-booking' );
+		include 'tpl-widget.php';
 	}
 
 	/**
@@ -138,8 +129,18 @@ class Widget_Better_Starter_Widget extends WP_Widget {
 								 value="<?php echo esc_attr( isset( $instance[ $field_name ] ) ? $instance[ $field_name ] : $field_data['default_value'] ); ?>"/>
 				</p>
 				<?php
-			//elseif($field_data['type'] == 'textarea'):
-			//You can implement more field types like this.
+			elseif($field_data['type'] == 'select'):
+				?>
+				<p>
+					<label
+						for="<?php echo $this->get_field_id( $field_name ); ?>"><?php _e( $field_data['description'], $this->textdomain ); ?></label>
+					<select class="widefat" id="<?php echo $this->get_field_id( $field_name ); ?>"
+									name="<?php echo $this->get_field_name( $field_name ); ?>" type="text">
+						<option value=""></option>
+						value="<?php echo esc_attr( isset( $instance[ $field_name ] ) ? $instance[ $field_name ] : $field_data['default_value'] ); ?>"
+					</select>
+				</p>
+				<?php
 			else:
 				echo __( 'Error - Field type not supported', $this->textdomain ) . ': ' . $field_data['type'];
 			endif;
@@ -158,3 +159,9 @@ class Widget_Better_Starter_Widget extends WP_Widget {
 		return $new_instance;
 	}
 }
+
+add_action( 'wp_enqueue_scripts', function () {
+	$url = plugin_dir_url( __FILE__ );
+	wp_register_script( 'lubd-booking', "$url/js/booking.js", [ 'jquery-ui-datepicker' ] );
+	wp_register_style( 'lubd-booking', "$url/css/booking.css" );
+} );
