@@ -20,8 +20,8 @@ class Lubd_Booking_Widget extends WP_Widget {
 	const WIDGET_NAME = "Lubd booking widget";
 	const WIDGET_DESCRIPTION = "Shows booking form for Lubd";
 
-	var $textdomain;
-	var $fields;
+	public $textdomain;
+	public $fields;
 
 	/**
 	 * Registers widget
@@ -42,8 +42,7 @@ class Lubd_Booking_Widget extends WP_Widget {
 		//var_dump($this->textdomain);
 
 		//Add fields
-		$this->add_field( 'title', 'Enter title', '', 'text' );
-		$this->add_field( 'Hostel', 'Preset hostel', '', 'text' );
+		$this->add_field( 'preset_location', 'Preset location', '', 'select' );
 
 		//Translations
 		load_plugin_textdomain( $this->textdomain, false, basename( dirname( __FILE__ ) ) . '/languages' );
@@ -83,12 +82,12 @@ class Lubd_Booking_Widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args, $instance ) {
-		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		/* Before and after widget arguments are usually modified by themes */
 		echo $args['before_widget'];
 
-		if ( ! empty( $title ) ) {
+		if ( ! empty( $instance['title'] ) ) {
+			$title = apply_filters( 'widget_title', $instance['title'] );
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
@@ -119,31 +118,21 @@ class Lubd_Booking_Widget extends WP_Widget {
 	public function form( $instance ) {
 		/* Generate admin for fields */
 		foreach ( $this->fields as $field_name => $field_data ) {
-			if ( $field_data['type'] === 'text' ):
-				?>
-				<p>
-					<label
-						for="<?php echo $this->get_field_id( $field_name ); ?>"><?php _e( $field_data['description'], $this->textdomain ); ?></label>
-					<input class="widefat" id="<?php echo $this->get_field_id( $field_name ); ?>"
-								 name="<?php echo $this->get_field_name( $field_name ); ?>" type="text"
-								 value="<?php echo esc_attr( isset( $instance[ $field_name ] ) ? $instance[ $field_name ] : $field_data['default_value'] ); ?>"/>
-				</p>
-				<?php
-			elseif($field_data['type'] == 'select'):
-				?>
-				<p>
-					<label
-						for="<?php echo $this->get_field_id( $field_name ); ?>"><?php _e( $field_data['description'], $this->textdomain ); ?></label>
-					<select class="widefat" id="<?php echo $this->get_field_id( $field_name ); ?>"
-									name="<?php echo $this->get_field_name( $field_name ); ?>" type="text">
-						<option value=""></option>
-						value="<?php echo esc_attr( isset( $instance[ $field_name ] ) ? $instance[ $field_name ] : $field_data['default_value'] ); ?>"
-					</select>
-				</p>
-				<?php
-			else:
-				echo __( 'Error - Field type not supported', $this->textdomain ) . ': ' . $field_data['type'];
-			endif;
+			$val = esc_attr( isset( $instance[ $field_name ] ) ? $instance[ $field_name ] : '' ); ?>
+			<p>
+				<label><?php echo $field_data['description']; ?></label>
+				<select class="widefat" name="<?php echo $this->get_field_name( $field_name ); ?>">
+					<option <?php selected( $val, '' ) ?> value="">Show selection</option>
+					<option <?php selected( $val, '419' ) ?> value="419">Bangkok Silom</option>
+					<option <?php selected( $val, '420' ) ?> value="420">Bangok Siam</option>
+					<option <?php selected( $val, '421' ) ?> value="421">Phuket Patong</option>
+					<option <?php selected( $val, '504' ) ?> value="504">Cambodia Siem Reap</option>
+					<option <?php selected( $val, 'https://hotels.cloudbeds.com/reservation/ZH7GQ6#' ) ?>
+						value="https://hotels.cloudbeds.com/reservation/ZH7GQ6#">Philippines Makati
+					</option>
+				</select>
+			</p>
+			<?php
 		}
 	}
 
