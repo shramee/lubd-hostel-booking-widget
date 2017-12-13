@@ -237,6 +237,9 @@ $accent: #09f;
 				width: 20%;
 				float: left;
 			}
+			input#lubd_property ~ .form-group {
+				width: 25%;
+			}
 			.field {
 				display: block;
 				margin: 7px;
