@@ -9,6 +9,8 @@
  * License: GPL2
  */
 
+define( 'LUBD_WIDGET_VERSION', '1.0.0' );
+
 // Register the widget
 add_action( 'widgets_init', 'Lubd_Booking_Widget::register_widget' );
 
@@ -141,10 +143,12 @@ class Lubd_Booking_Widget extends WP_Widget {
 
 add_action( 'wp_enqueue_scripts', function () {
 	$url = plugin_dir_url( __FILE__ );
-	wp_register_script( 'lubd-booking', "$url/js/booking.js", [ 'jquery-ui-datepicker' ] );
-	wp_register_style( 'lubd-booking', "$url/css/booking.css" );
+	wp_register_script( 'lubd-booking', "$url/js/booking.js", [ 'jquery-ui-datepicker' ], LUBD_WIDGET_VERSION );
+	wp_register_style( 'lubd-booking', "$url/css/booking.css", [], LUBD_WIDGET_VERSION );
 } );
 
 add_shortcode( 'lubd_booking', function( $instance ) {
+	ob_start();
 	include 'tpl-widget.php';
+	return ob_get_clean();
 } );

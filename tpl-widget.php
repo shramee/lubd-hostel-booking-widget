@@ -4,7 +4,6 @@ wp_enqueue_style( 'lubd-booking' );
 ?>
 
 <section id="lubd_booking_widget">
-	<h1>Booking with Label</h1>
 	<div id="lubd_booking_form">
 		<form id="booking_form" class="form form-horizon form-with-label">
 			<?php if ( ! empty( $instance['preset_location'] ) ) { ?>
@@ -12,7 +11,7 @@ wp_enqueue_style( 'lubd-booking' );
 			<?php } else { ?>
 				<div class="form-group">
 					<span class="field select-icon">
-						<label class="label" for="lubd_child">Location</label>
+						<label class="label" for="lubd_child">Where to stay</label>
 						<select id="lubd_property" class="input-select">
 							<option value="" selected>Please choose</option>
 							<option value="419">Bangkok Silom</option>

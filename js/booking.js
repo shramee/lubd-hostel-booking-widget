@@ -231,6 +231,12 @@
 					}
 					return output;
 				}
+
+				/** Disable coupons field for custom urls */
+				$this.find( settings.propertyId ).change( function () {
+					var $t = $( this );
+					$this.find( settings.codeSelector ).prop( 'disabled', $t.val().indexOf( 'http' ) > -1 )
+				} );
 			} );
 		};
 
