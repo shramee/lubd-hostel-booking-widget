@@ -154,26 +154,11 @@ $accent: tomato;
 	}
 
 	.form {
+		padding-top: 22px;
+		display: flex;
 		* {
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
-		}
-		.row {
-			margin-left: -5px;
-			margin-right: -5px;
-			&:after {
-				content: '';
-				display: block;
-				clear: both;
-			}
-			> .col {
-				float: left;
-				padding-left: 5px;
-				padding-right: 5px;
-			}
-			&.cols-3 > .col {
-				width: 33.33%;
-			}
 		}
 		.field {
 			position: relative;
@@ -236,14 +221,14 @@ $accent: tomato;
 		}
 	}
 	.form-group {
-		display: block;
-		width: 20%;
-		float: left;
+		flex: 1 1;
 		margin: 0;
 	}
-	input#lubd_property ~ .form-group {
-		width: 25%;
+
+	input#lubd_property[value*="hotels.cloudbeds.com/"] ~ .form-group:nth-last-of-type(2) {
+		display: none;
 	}
+
 	.field {
 		display: block;
 		margin: 7px;
@@ -257,9 +242,6 @@ $accent: tomato;
 			background: #ccc;
 		}
 	}
-	.form.form-with-label {
-		padding-top: 22px;
-	}
 }
 
 #Booking .wpb_text_column,
@@ -269,6 +251,9 @@ $accent: tomato;
 
 @media (max-width: 700px) {
 	#lubd_booking_form {
+		.form {
+			flex-wrap: wrap;
+		}
 		.form-group {
 			.field:after {
 				font-size: 22px;
@@ -281,14 +266,9 @@ $accent: tomato;
 			}
 		}
 
-		.form-group,
-		input#lubd_property ~ .form-group {
-			width: 100%;
+		.form-group {
+			flex: 1 0 100%;
 			padding-top: 1.6em;
-		}
-		.form-group:last-of-type,
-		input#lubd_property ~ .form-group:last-of-type {
-			padding-top: .7em;
 		}
 	}
 }
