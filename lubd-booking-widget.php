@@ -3,13 +3,13 @@
  * Plugin Name: Lubd booking widget
  * Plugin URI:
  * Description: Shows booking form for Lubd
- * Version: 1.0
+ * Version: 1.1.0
  * Author: Shramee
  * Author URI: http://shramee.me/
  * License: GPL2
  */
 
-define( 'LUBD_WIDGET_VERSION', '1.0.0' );
+define( 'LUBD_WIDGET_VERSION', '1.1.0' );
 
 // Register the widget
 add_action( 'widgets_init', 'Lubd_Booking_Widget::register_widget' );
